@@ -2,6 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import Login from './Components/Login.jsx';
 import exampleData from './data/exampleData.js';
+import{getData, sendData} from './data/dataAccess.js';
 
 class App extends React.Component {
   constructor (props) {
@@ -10,6 +11,7 @@ class App extends React.Component {
       username: '',
       message: '',
       text: '',
+      roomname: 'lobby',
       data: this.props.data
       
     }
@@ -27,6 +29,19 @@ class App extends React.Component {
   onChange (input) {
     this.setState({text: input});
 
+  }
+  
+  onMessageChange (input) {
+    this.setState({message: input});
+
+  }
+  
+  getMessageData(data){
+    this.setState({data: data})
+  }
+
+  messageSubmit () {
+    sendData({username: this.state.username, text: this.state.message, roomname: this.state.roomname})
   }
 
   render () {
