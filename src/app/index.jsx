@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import Login from './Components/Login.jsx';
 import exampleData from './data/exampleData.js';
 import{getData, sendData} from './data/dataAccess.js';
-
+import $ from 'jquery';
 class App extends React.Component {
   constructor (props) {
     super(props)
@@ -17,12 +17,17 @@ class App extends React.Component {
     }
     this.loginSubmit = this.loginSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.invoke = this.invoke.bind(this);
+    this.onMessageChange = this.onMessageChange.bind(this);
+    this.getMessageData = this.getMessageData.bind(this);
+    this.messageSubmit = this.messageSubmit.bind(this);
   }
 
   loginSubmit () {
     
     this.setState({username: this.state.text});
-    console.log(this.state.username);
+    
+    this.messageSubmit();
 
   }
 
@@ -37,13 +42,17 @@ class App extends React.Component {
   }
   
   getMessageData(data){
+    
     this.setState({data: data})
+  }
+  invoke() {
+    getData(this.getMessageData);
   }
 
   messageSubmit () {
-    sendData({username: this.state.username, text: this.state.message, roomname: this.state.roomname})
+    sendData({username: this.state.username, text: this.state.message, roomname: this.state.roomname}, this.invoke);
   }
-
+// , getData(this.getMessageData)
   render () {
     return (
       <div>
