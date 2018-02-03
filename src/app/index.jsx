@@ -27,11 +27,10 @@ class App extends React.Component {
     
     this.setState({username: this.state.text});
     
-    this.messageSubmit();
 
   }
 
-  onChange (input) {
+  onInputChange (input) {
     this.setState({text: input});
 
   }
@@ -56,7 +55,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <Login onChange = {this.onChange} loginSubmit={this.loginSubmit}/>
+        <Login onInputChange = {this.onInputChange} loginSubmit={this.loginSubmit}/>
       </div>
     );
   }
