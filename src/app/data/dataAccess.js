@@ -6,7 +6,7 @@ const apiAUTH =  {
 }
 
 const sendData = (message, callback) => {
-  console.log(message);
+  console.log(message, ' message coming in');
   $.ajax({
     'type': "POST",
     'headers': {
@@ -15,9 +15,9 @@ const sendData = (message, callback) => {
     },
     'url': "http://parse.sfs.hackreactor.com/chatterbox/classes/messages",
     'contentType': 'application/json',
-    'data': JSON.stringify({username: message.username, text: message.message, roomname: message.roomname})
+    'data': JSON.stringify({username: message.username, text: message.text, roomname: message.roomname})
   }).done(function(data) {
-    console.log(data)
+    console.log(data, " SEND DATA")
    callback();
     
   }).fail(function(data){
@@ -36,10 +36,11 @@ const getData = (callback) => {
       },
       'url': "http://parse.sfs.hackreactor.com/chatterbox/classes/messages",
       'contentType': 'application/json',
+      'data': 'order=-createdAt'
       
     }).done(function(data) {
-      console.log(data, "This is data ......");
-      callback(data);
+      console.log(data, "This is get data ......");
+      callback(data.results);
       
     }).fail(function(data){
       console.log("No data");

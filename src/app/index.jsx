@@ -1,6 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 import Login from './Components/Login.jsx';
+import Composer from './Components/Composer.jsx';
+import Chatbox from './Components/Chatbox.jsx';
 import exampleData from './data/exampleData.js';
 import{getData, sendData} from './data/dataAccess.js';
 import $ from 'jquery';
@@ -16,13 +18,18 @@ class App extends React.Component {
       
     }
     this.loginSubmit = this.loginSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
     this.invoke = this.invoke.bind(this);
     this.onMessageChange = this.onMessageChange.bind(this);
     this.getMessageData = this.getMessageData.bind(this);
     this.messageSubmit = this.messageSubmit.bind(this);
   }
+/*------------------RENDER------------------ */
+  componentDidMount(){
+    this.invoke();
+  }
 
+   /*------------------LOGIN COMPONENT------------------ */
   loginSubmit () {
     
     this.setState({username: this.state.text});
@@ -35,6 +42,9 @@ class App extends React.Component {
 
   }
   
+
+
+  /*---------------COMPOSER COMPONENT--------------------- */
   onMessageChange (input) {
     this.setState({message: input});
 
@@ -44,18 +54,31 @@ class App extends React.Component {
     
     this.setState({data: data})
   }
+
   invoke() {
+
     getData(this.getMessageData);
   }
 
   messageSubmit () {
     sendData({username: this.state.username, text: this.state.message, roomname: this.state.roomname}, this.invoke);
   }
-// , getData(this.getMessageData)
+  
+
+
+
   render () {
     return (
       <div>
-        <Login onInputChange = {this.onInputChange} loginSubmit={this.loginSubmit}/>
+        <div>
+          <Login onInputChange={this.onInputChange} loginSubmit={this.loginSubmit}/>
+        </div>
+        <div>
+          <Composer onMessageChange={this.onMessageChange} messageSubmit={this.messageSubmit} username={this.state.username}/>
+        </div>
+        <div>
+          <Chatbox chatsData={this.state.data} />
+        </div>
       </div>
     );
   }
