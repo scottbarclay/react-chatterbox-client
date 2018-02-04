@@ -1,10 +1,12 @@
 import React from 'react';
+import Bootstrap from '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import {render} from 'react-dom';
 import Login from './Components/Login.jsx';
 import Composer from './Components/Composer.jsx';
 import Chatbox from './Components/Chatbox.jsx';
 import exampleData from './data/exampleData.js';
 import{getData, sendData} from './data/dataAccess.js';
+import {jumbotron} from 'react-bootstrap'
 import $ from 'jquery';
 class App extends React.Component {
   constructor (props) {
@@ -71,12 +73,12 @@ class App extends React.Component {
     return (
       <div>
         <div>
-          <Login onInputChange={this.onInputChange} loginSubmit={this.loginSubmit}/>
+          <Login  onInputChange={this.onInputChange} loginSubmit={this.loginSubmit}/>
         </div>
         <div>
           <Composer onMessageChange={this.onMessageChange} messageSubmit={this.messageSubmit} username={this.state.username}/>
         </div>
-        <div>
+        <div className="container">
           <Chatbox chatsData={this.state.data} />
         </div>
       </div>

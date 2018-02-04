@@ -2,8 +2,12 @@ import React from 'react';
 
 const Chat = (props) => (
   <div>
-    <h2>{props.username}</h2>
-    <p>{props.message}</p>
+    <div className = "messageUsername">
+      <h2>{props.username}</h2>
+    </div>
+    <div className = "messageText">
+      <p>{props.message}</p>
+    </div>
   </div>
 );
 
